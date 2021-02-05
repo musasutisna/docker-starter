@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:0.0.1
+    build: ./mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariadb/my.cnf:/etc/mysql/my.cnf
+      - ./mariadb/databases:/var/lib/mysql
+    env_file:
+      - ./mariadb/.env
+    networks:
+      - lamp
+  php-apache:
+    depends_on:
+      - mariadb
+    container_name: php-apache
+    image: php-apache:0.0.1
+    build: ./php-apache
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./www:/var/www/html
+    env_file:
+      - ./php-apache/.env
+    networks:
+      - lamp
+networks:
+  lamp:
+    name: lamp
+    driver: bridge
