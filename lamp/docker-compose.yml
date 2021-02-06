@@ -23,7 +23,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./php-apache/custom.ini:/usr/local/etc/php/conf.d/custom.ini
       - ./www:/var/www/html
     env_file:
       - ./php-apache/.env
