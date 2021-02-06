@@ -10,7 +10,7 @@ RUN apt update -y
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions intl zip
+    install-php-extensions mcrypt bcmath bz2 intl gd mbstring mysqli pdo pdo_mysql zip
 
 # Setup apache virtual host
 COPY etc /etc
