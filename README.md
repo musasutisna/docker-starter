@@ -18,5 +18,13 @@
 Linux apache mysql php
 | Image | Version |
 | :- | :-: |
-| PHP | 7.4-apache |
 | Mariadb | 10.5.5 |
+| PHP | 7.4-apache |
+
+## Lemp Stack
+Linux nginx mysql php
+| Image | Version |
+| :- | :-: |
+| Nginx | latest |
+| Mariadb | 10.5.5 |
+| PHP | 7.4-fpm |

@@ -1,0 +1,53 @@
+version: "3.7"
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:0.0.1
+    build: ./mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariadb/my.cnf:/etc/mysql/my.cnf
+      - ./mariadb/databases:/var/lib/mysql
+    env_file:
+      - ./mariadb/.env
+    networks:
+      - lemp
+  php:
+    depends_on:
+      - mariadb
+    container_name: php
+    image: php:0.0.1
+    build: ./php
+    ports:
+      - 9000:9000
+    volumes:
+      - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./www:/var/www/html
+    env_file:
+      - ./php/.env
+    networks:
+      - lemp
+  nginx:
+    depends_on:
+     - php
+    container_name: nginx
+    image: nginx:0.0.1
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs/access.log:/var/log/nginx/access.log
+      - ./nginx/logs/error.log:/var/log/nginx/error.log
+      - ./www:/usr/share/nginx/html
+    env_file:
+      - ./nginx/.env
+    networks:
+      - lemp
+networks:
+  lemp:
+    name: lemp
+    driver: bridge
