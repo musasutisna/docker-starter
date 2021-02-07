@@ -18,13 +18,21 @@
 Linux apache mysql php
 | Image | Version |
 | :- | :-: |
-| Mariadb | 10.5.5 |
-| PHP | 7.4-apache |
+| mariadb | 10.5.5 |
+| php | 7.4-apache |
 
 ## Lemp Stack
 Linux nginx mysql php
 | Image | Version |
 | :- | :-: |
-| Nginx | latest |
-| Mariadb | 10.5.5 |
-| PHP | 7.4-fpm |
+| nginx | latest |
+| mariadb | 10.5.5 |
+| php | 7.4-fpm |
+
+## Mean Stack
+Mongodb express app nodejs
+
+| Image | Version |
+| :- | :-: |
+| mongo | 4.2.12 |
+| node | 15.7.0 |
