@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongodb:0.0.1
+    build: ./mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/mongod.log:/etc/mongod.log
+      - ./mongodb/data:/data/db
+      - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    env_file:
+      - ./mongodb/.env
+    networks:
+      - mean
+    command:
+      - '--auth'
+  nodejs:
+    depends_on:
+      - mongodb
+    container_name: nodejs
+    image: nodejs:0.0.1
+    build: ./nodejs
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/home/node/app
+    env_file:
+      - ./app/.env
+    networks:
+      - mean
+networks:
+  mean:
+    name: mean
+    driver: bridge

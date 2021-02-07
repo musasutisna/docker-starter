@@ -1,0 +1,14 @@
+FROM node:15.7.0
+
+# Set working directory
+WORKDIR /home/node/app
+
+# Allow to install package
+RUN apt update -y
+
+# Install packages
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["sh", "-c", "npm install && npm start"]
