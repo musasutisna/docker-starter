@@ -30,6 +30,7 @@ services:
       - ./app/.env
     networks:
       - mean
+    entrypoint: ['bash', './entrypoint.sh']
 networks:
   mean:
     name: mean
