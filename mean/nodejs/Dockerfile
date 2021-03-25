@@ -6,7 +6,4 @@ WORKDIR /home/node/app
 # Allow to install package
 RUN apt update -y
 
-# Install packages
-RUN npm install
-
 EXPOSE 3000
