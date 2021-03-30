@@ -19,10 +19,10 @@ services:
     container_name: php
     image: php:0.0.1
     build: ./php
-    ports:
-      - 9000:9000
     volumes:
       - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./php/www.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./php/sock:/var/run/sock
       - ./www:/usr/share/nginx/html
     env_file:
       - ./php/.env
@@ -42,6 +42,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs/access.log:/var/log/nginx/access.log
       - ./nginx/logs/error.log:/var/log/nginx/error.log
+      - ./php/sock:/var/run/sock
       - ./www:/usr/share/nginx/html
     env_file:
       - ./nginx/.env
