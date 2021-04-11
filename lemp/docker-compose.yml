@@ -28,6 +28,7 @@ services:
       - ./php/.env
     networks:
       - lemp
+    entrypoint: ['bash', './entrypoint.sh']
   nginx:
     depends_on:
      - php
