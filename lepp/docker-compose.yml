@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:0.0.1
+    build: ./postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/my.cnf:/var/lib/postgresql/data/postgresql.conf
+      - ./postgres/databases:/var/lib/postgresql/data
+    env_file:
+      - ./postgres/.env
+    networks:
+      - lepp
+  php:
+    depends_on:
+      - postgres
+    container_name: php
+    image: php:0.0.1
+    build: ./php
+    volumes:
+      - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./php/www.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./php/sock:/var/run/sock
+      - ./www:/usr/share/nginx/html
+    env_file:
+      - ./php/.env
+    networks:
+      - lepp
+    entrypoint: ['bash', './entrypoint.sh']
+  nginx:
+    depends_on:
+      - php
+    container_name: nginx
+    image: nginx:0.0.1
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs/access.log:/var/log/nginx/access.log
+      - ./nginx/logs/error.log:/var/log/nginx/error.log
+      - ./php/sock:/var/run/sock
+      - ./www:/usr/share/nginx/html
+    env_file:
+      - ./nginx/.env
+    networks:
+      - lepp
+networks:
+  lepp:
+    name: lepp
+    driver: bridge

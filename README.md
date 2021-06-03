@@ -29,6 +29,14 @@ Linux nginx mysql php
 | mariadb | 10.5.5 |
 | php | 7.4-fpm |
 
+## Lepp Stack
+Linux nginx postgres php
+| Image | Version |
+| :- | :-: |
+| nginx | latest |
+| postgres | 11.12 |
+| php | 7.4-fpm |
+
 ## Mean Stack
 Mongodb express app nodejs
 
