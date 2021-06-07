@@ -7,12 +7,13 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./postgres/my.cnf:/var/lib/postgresql/data/postgresql.conf
-      - ./postgres/databases:/var/lib/postgresql/data
+      - ./postgres/postgresql.conf:/usr/share/postgresql/postgresql.conf
+      - ./postgres/databases:/var/lib/postgresql/data/pgdata
     env_file:
       - ./postgres/.env
     networks:
       - lepp
+    command: postgres -c 'config_file=/usr/share/postgresql/postgresql.conf'
   php:
     depends_on:
       - postgres
