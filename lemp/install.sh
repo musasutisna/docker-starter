@@ -1,9 +1,6 @@
 # Set mariadb environment
 mv ./mariadb/.env.example ./mariadb/.env
 
-# Set nginx environment
-mv ./nginx/.env.example ./nginx/.env
-
 # Set nginx logs
 mv ./nginx/logs/access.log.example ./nginx/logs/access.log
 mv ./nginx/logs/error.log.example ./nginx/logs/error.log
