@@ -1,4 +1,4 @@
 conf.d/*
 !conf.d/default.conf.example
-logs/access.log
-logs/error.log
+logs/*
+!logs/.gitkeep

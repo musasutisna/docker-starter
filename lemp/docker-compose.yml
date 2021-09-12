@@ -41,8 +41,7 @@ services:
     volumes:
       - ./nginx/ssl:/etc/nginx/ssl
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/logs/access.log:/var/log/nginx/access.log
-      - ./nginx/logs/error.log:/var/log/nginx/error.log
+      - ./nginx/logs:/var/log/nginx
       - ./php/sock:/var/run/sock
       - ./www:/usr/share/nginx/html
     networks:
