@@ -31,6 +31,21 @@ services:
     networks:
       - mean
     entrypoint: ['bash', './entrypoint.sh']
+  nginx:
+    depends_on:
+      - nodejs
+    container_name: nginx
+    image: nginx:0.0.1
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+    networks:
+      - mean
 networks:
   mean:
     name: mean

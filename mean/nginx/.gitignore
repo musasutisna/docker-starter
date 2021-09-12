@@ -1,0 +1,4 @@
+conf.d/*
+!conf.d/default.conf.example
+logs/*
+!logs/.gitkeep
