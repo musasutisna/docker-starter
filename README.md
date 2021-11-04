@@ -44,3 +44,12 @@ Mongodb express app nodejs
 | :- | :-: |
 | mongo | 4.2.12 |
 | node | 15.7.0 |
+
+## Lepr Stack
+Linux nginx php rabbitmq
+
+| Image | Version |
+| :- | :-: |
+| nginx | latest |
+| php | 7.4-fpm |
+| rabbitmq | management |

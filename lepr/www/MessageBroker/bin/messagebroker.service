@@ -1,0 +1,14 @@
+[Unit]
+Description=Message Broker Service
+After=mysqld.service
+
+[Service]
+User=root
+Type=simple
+PIDFile=/var/run/messagebroker.pid
+Restart=always
+RestartSec=5s
+ExecStart=/bin/bash /opt/messagebroker/bin/init.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  rabbitmq:
+    container_name: lepr-rabbitmq
+    image: lepr:rabbitmq-0.0.1
+    build: ./rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - lepr
+  php:
+    depends_on:
+      - rabbitmq
+    container_name: lepr-php
+    image: lepr:php-0.0.1
+    build: ./php
+    volumes:
+      - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./php/www.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./php/sock:/var/run/sock
+      - ./www:/usr/share/nginx/html
+    env_file:
+      - ./php/.env
+    networks:
+      - lepr
+    entrypoint: ['bash', './entrypoint.sh']
+  nginx:
+    depends_on:
+      - php
+    container_name: lepr-nginx
+    image: lepr:nginx-0.0.1
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+      - ./php/sock:/var/run/sock
+      - ./www:/usr/share/nginx/html
+    networks:
+      - lepr
+networks:
+  lepr:
+    name: lepr
+    driver: bridge

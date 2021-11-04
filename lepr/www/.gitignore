@@ -1,0 +1,4 @@
+MessageBroker/vendor
+MessageBroker/logs/*
+!MessageBroker/logs/.gitkeep
+MessageBroker/Config.php
