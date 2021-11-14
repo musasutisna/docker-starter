@@ -15,7 +15,7 @@ class Init {
 
     public function __construct()
     {
-        $this->connection = new Rabbitmq('MESSAGEBROKER');
+        $this->connection = new Rabbitmq(RABBIT_QUEUENAME, RABBIT_DELAY_EXCHANGENAME);
 
         $this->connection->listen();
     }

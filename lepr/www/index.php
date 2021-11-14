@@ -22,9 +22,9 @@ function sendMessage($message) {
 if (isset($_POST['kirim'])) {
     if (isset($_POST['email'])) {
         $email = $_POST['email'];
-        
+
         sendMessage("greeting;$email");
-        
+
         $message = 'Success Send Email!';
     } else {
         $message = 'Email address could not be empty!';
