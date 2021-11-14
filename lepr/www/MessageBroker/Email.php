@@ -27,7 +27,7 @@ class Email {
         $this->mail->ClearBCCs();
         $this->mail->setFrom(GMAIL_USERNAME, GMAIL_FROM);
 
-        if (is_null(GMAIL_BCC)) {
+        if ( ! is_null(GMAIL_BCC)) {
             $this->mail->addBCC(GMAIL_BCC);
         }
     }
