@@ -27,6 +27,7 @@ services:
     networks:
       - lepr
     entrypoint: ['bash', './entrypoint.sh']
+    restart: on-failure
   nginx:
     depends_on:
       - php
