@@ -16,9 +16,23 @@ services:
       - mean
     command:
       - '--auth'
+  mariadb:
+    container_name: mariadb
+    image: mariadb:0.0.1
+    build: ./mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mariadb/my.cnf:/etc/mysql/my.cnf
+      - ./mariadb/databases:/var/lib/mysql
+    env_file:
+      - ./mariadb/.env
+    networks:
+      - mean
   nodejs:
     depends_on:
       - mongodb
+      - mariadb
     container_name: nodejs
     image: nodejs:0.0.1
     build: ./nodejs

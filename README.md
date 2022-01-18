@@ -38,11 +38,12 @@ Linux nginx postgres php
 | php | 7.4-fpm |
 
 ## Mean Stack
-Mongodb express app nodejs
+Mongodb/mysql express app nodejs
 
 | Image | Version |
 | :- | :-: |
 | mongo | 4.2.12 |
+| mariadb | 10.5.5 |
 | node | 15.7.0 |
 
 ## Lepr Stack

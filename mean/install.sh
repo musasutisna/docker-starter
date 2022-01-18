@@ -2,6 +2,9 @@
 cp ./mongodb/.env.example ./mongodb/.env
 cp ./mongodb/mongod.log.example ./mongodb/mongod.log
 
+# Set mariadb environment
+cp ./mariadb/.env.example ./mariadb/.env
+
 # Set app environment
 cp ./app/.env.example ./app/.env
 
