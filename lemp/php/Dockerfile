@@ -4,7 +4,7 @@ FROM php:7.4-fpm
 WORKDIR /usr/share/nginx/html
 
 # Allow to install package
-RUN apt update -y
+RUN apt update --allow-releaseinfo-change -y
 
 # Install extensions
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
