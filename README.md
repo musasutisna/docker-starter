@@ -46,6 +46,15 @@ Mongodb/mysql express app nodejs
 | mariadb | 10.5.5 |
 | node | 15.7.0 |
 
+## Pean Stack
+Postgres express app nodejs
+
+| Image | Version |
+| :- | :-: |
+| postgres | 14.5 |
+| node | 15.7.0 |
+| nginx | latest |
+
 ## Lepr Stack
 Linux nginx php rabbitmq
 

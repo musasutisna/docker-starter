@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: pean-postgres
+    image: pean:postgres-0.0.1
+    build: ./postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/postgresql.conf:/usr/share/postgresql/postgresql.conf
+      - ./postgres/databases:/var/lib/postgresql/data/pgdata
+    env_file:
+      - ./postgres/.env
+    networks:
+      - pean
+    command: postgres -c 'config_file=/usr/share/postgresql/postgresql.conf'
+  nodejs:
+    depends_on:
+      - postgres
+    container_name: pean-nodejs
+    image: pean:nodejs-0.0.1
+    build: ./nodejs
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/home/node/app
+    env_file:
+      - ./app/.env
+    networks:
+      - pean
+    entrypoint: ['bash', './entrypoint.sh']
+  nginx:
+    depends_on:
+      - nodejs
+    container_name: pean-nginx
+    image: pean:nginx-0.0.3
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+    networks:
+      - pean
+networks:
+  pean:
+    name: pean
+    driver: bridge

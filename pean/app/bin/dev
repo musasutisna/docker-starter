@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const chokidar = require('chokidar');
+const child = require('child_process');
+const { close } = require('../config/database');
+
+/**
+ * Path root application.
+ */
+const AppPath = process.cwd();
+
+/**
+ * Current running process.
+ */
+var currentChild = null;
+
+/**
+ * Directories to be watch on development.
+ */
+const watchList = [
+  AppPath + '/app.js',
+  AppPath + '/controllers',
+  AppPath + '/models',
+  AppPath + '/routes'
+];
+
+/**
+ * Reload changed source file.
+ *
+ * @param   string
+ * @return  void
+ */
+function reloadFile(cacheId) {
+  console.log('Reload source: ' + cacheId);
+
+  restartApp();
+}
+
+/**
+ * Delete source file.
+ *
+ * @param   string
+ * @return  void
+ */
+function deleteFile(cacheId) {
+  console.log('Deleted source: ' + cacheId);
+
+  restartApp();
+}
+
+/**
+ * Create watcher for listed directories
+ */
+watchList.forEach(path => {
+  const watcher = chokidar.watch(path);
+
+  watcher.on('ready', () => {
+    watcher.on('add', restartApp);
+    watcher.on('change', reloadFile);
+    watcher.on('unlink', deleteFile);
+  });
+});
+
+/**
+ * Start express app www.
+ *
+ * @return  void
+ */
+function startApp() {
+  // stop current process
+  if (currentChild) {
+    currentChild.kill();
+  }
+
+  try {
+    currentChild = child.fork(AppPath + '/bin/www');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+/**
+ * Restart app if be needed.
+ *
+ * @return  void
+ */
+async function restartApp() {
+  // await close();
+
+  startApp();
+}
+
+/**
+ * Running app.
+ */
+startApp();
