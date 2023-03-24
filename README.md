@@ -63,3 +63,14 @@ Linux nginx php rabbitmq
 | nginx | latest |
 | php | 7.4-fpm |
 | rabbitmq | management |
+
+
+
+## Geo stack
+Postgres geoserver nginx
+
+| Image | Version |
+| :- | :-: |
+| postgis | 14-3.3 |
+| mu545/geoserver | latest |
+| nginx | latest |

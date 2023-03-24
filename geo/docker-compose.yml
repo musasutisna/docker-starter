@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: geo-postgres
+    image: geo:postgres-0.0.1
+    build: ./postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/postgresql.conf:/usr/share/postgresql/postgresql.conf
+      - ./postgres/databases:/var/lib/postgresql/data/pgdata
+    env_file:
+      - ./postgres/.env
+    networks:
+      - geo
+    command: postgres -c 'config_file=/usr/share/postgresql/postgresql.conf'
+  geoserver:
+    depends_on:
+      - postgres
+    container_name: geo-geoserver
+    image: geo:geoserver-0.0.1
+    build: ./geoserver
+    ports:
+      - 8080:8080
+    volumes:
+      - ./geoserver/data:/opt/geoserver_data
+      - ./geoserver/logs/geoserver.log:/opt/geoserver_data/logs/geoserver.log
+      - ./geoserver/fonts:/opt/additional_fonts
+    env_file:
+      - ./geoserver/.env
+    networks:
+      - geo
+  nginx:
+    depends_on:
+      - geoserver
+    container_name: geo-nginx
+    image: geo:nginx-0.0.1
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+      - ./app:/usr/share/nginx/html/nodejs
+    networks:
+      - geo
+networks:
+  geo:
+    name: geo
+    driver: bridge
