@@ -4,7 +4,7 @@ FROM php:7.4-apache
 WORKDIR /var/www/html
 
 # Allow to install package
-RUN apt update -y
+RUN apt update -y --allow-releaseinfo-change
 
 # Install extensions
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/

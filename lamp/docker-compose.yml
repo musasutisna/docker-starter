@@ -17,7 +17,7 @@ services:
     depends_on:
       - mariadb
     container_name: php-apache
-    image: php-apache:0.0.1
+    image: php-apache:0.0.2
     build: ./php-apache
     ports:
       - 80:80
